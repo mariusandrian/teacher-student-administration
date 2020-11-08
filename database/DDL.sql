@@ -1,0 +1,7 @@
+-- DROP TABLE IF EXISTS teachers;
+-- CREATE TABLE teachers (
+--   teacher_id int NOT NULL AUTO_INCREMENT,
+--   teacher_email varchar(255),
+--   teacher_name varchar(255),
+--   PRIMARY KEY (teacher_id)
+-- );

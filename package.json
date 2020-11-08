@@ -22,6 +22,7 @@
     "http-status-codes": "^1.4.0",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.3",
+    "sequelize-cli": "^6.2.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
