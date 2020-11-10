@@ -1,5 +1,6 @@
-const { Sequelize } = require('sequelize');
-const sequelize = require('../config/database');
+const Sequelize = require('sequelize');
+import sequelize from '../config/database';
+const { applyAssociations } = require('./associations');
 const db = {};
 
 const modelDefiners = [
@@ -7,17 +8,31 @@ const modelDefiners = [
     name: 'teachers',
     model: require('./tables/teachers')
   },
+  {
+    name: 'students',
+    model: require('./tables/students')
+  },
+  {
+    name: 'subjects',
+    model: require('./tables/subjects')
+  },
+  {
+    name: 'classes',
+    model: require('./tables/classes')
+  },
+  {
+    name: 'enrolment',
+    model: require('./tables/enrolment')
+  },
 ];
 
-// console.log(modelDefiners[0]);
+  modelDefiners.forEach(modelDefiner=> {
+    db[modelDefiner.name] = modelDefiner.model(sequelize, Sequelize);
+  });
 
-// modelDefiners.forEach(modelDefiner=> {
-//   db[modelDefiner.name] = modelDefiner.model(sequelize);
-// });
+  applyAssociations(db);
 
-// db[modelDefiners[0].name] = modelDefiners[0].model(sequelize);
+  db.sequelize = sequelize;
+  db.Sequelize = Sequelize;
 
-// db.sequelize = sequelize;
-// db.Sequelize = Sequelize;
-
-exports.array = modelDefiners;
+export default db;
