@@ -1,4 +1,4 @@
-import { NO_CONTENT, BAD_REQUEST, INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import { NO_CONTENT } from 'http-status-codes';
 import globalErrorHandler from '../config/globalErrorHandler';
 import db from '../models/index';
 

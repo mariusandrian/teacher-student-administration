@@ -33,6 +33,7 @@ var _process$env = process.env,
     DB_POOL_MIN_CONN = _process$env$DB_POOL_4 === void 0 ? '1' : _process$env$DB_POOL_4,
     _process$env$DB_LOG_L = _process$env.DB_LOG_LEVEL,
     DB_LOG_LEVEL = _process$env$DB_LOG_L === void 0 ? 'info' : _process$env$DB_LOG_L;
+console.log('here');
 var sequelize = new _sequelize["default"](DB_SCHEMA, DB_USER, DB_PW, {
   dialect: 'mysql',
   host: DB_HOST,
@@ -48,5 +49,6 @@ var sequelize = new _sequelize["default"](DB_SCHEMA, DB_USER, DB_PW, {
     LOG[DB_LOG_LEVEL](msg);
   }
 });
+console.log(sequelize);
 var _default = sequelize;
 exports["default"] = _default;

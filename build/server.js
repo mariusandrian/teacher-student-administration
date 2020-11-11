@@ -28,7 +28,7 @@ var startApplication = /*#__PURE__*/function () {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return _database["default"].authenticate();
+            return _database["default"].sync();
 
           case 3:
             _app["default"].listen(PORT, function () {
