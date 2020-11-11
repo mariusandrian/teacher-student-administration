@@ -1,4 +1,5 @@
 import { NO_CONTENT, BAD_REQUEST, INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import globalErrorHandler from '../config/globalErrorHandler';
 import db from '../models/index';
 
 const enrolStudents = async (req, res) => {
@@ -36,7 +37,7 @@ const enrolStudents = async (req, res) => {
       });
       studentId.push(studentResult[0].dataValues.id);
     }
-    const teacherResult = await db.teachers.findOrCreate({
+    let teacherResult = await db.teachers.findOrCreate({
       where: {
         email: teacher.email,
       },
@@ -45,7 +46,7 @@ const enrolStudents = async (req, res) => {
         email: teacher.email
       }
     });
-    const subjectResult = await db.subjects.findOrCreate({
+    let subjectResult = await db.subjects.findOrCreate({
       where: {
         code: subject.subjectCode
       },
@@ -53,7 +54,7 @@ const enrolStudents = async (req, res) => {
         code: subject.subjectCode, name: subject.name
       }
     });
-    const classroomResult = await db.classes.findOrCreate({
+    let classroomResult = await db.classes.findOrCreate({
       where: {
         code: classroom.classCode
       },
@@ -70,7 +71,7 @@ const enrolStudents = async (req, res) => {
     // Populate enrolment table
     if (Array.isArray(students)) {
       studentId.forEach(async student => {
-        let enrolmentResult = await db.enrolment.create({
+        await db.enrolment.create({
           studentId: student,
           teacherId: teacherId,
           subjectId: subjectId,
@@ -78,7 +79,7 @@ const enrolStudents = async (req, res) => {
         });
       });
     } else {
-      let enrolmentResult = await db.enrolment.create({
+      await db.enrolment.create({
         studentId: studentId[0],
         teacherId: teacherId,
         subjectId: subjectId,
@@ -88,7 +89,7 @@ const enrolStudents = async (req, res) => {
 
     return res.sendStatus(NO_CONTENT);
   } catch (err) {
-    console.log(err);
+    globalErrorHandler(err, req, res);
   }
 }
 

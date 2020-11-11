@@ -1,4 +1,5 @@
-import { OK, BAD_REQUEST, INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import { OK } from 'http-status-codes';
+import globalErrorHandler from '../config/globalErrorHandler';
 import db from '../models/index';
 
 const generateReportData = async (req, res) => {
@@ -35,9 +36,9 @@ const generateReportData = async (req, res) => {
       }
     });
 
-    return res.status(200).json(payload);
+    return res.status(OK).json(payload);
   } catch (err) {
-    console.log(err);
+    globalErrorHandler(err, req, res);
   }
 }
 
