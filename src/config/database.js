@@ -1,6 +1,5 @@
 import Sequelize from 'sequelize';
 import Logger from './logger';
-import DataTypes from 'sequelize';
 
 const LOG = new Logger('database.js');
 const {
@@ -31,88 +30,6 @@ const sequelize = new Sequelize(DB_SCHEMA, DB_USER, DB_PW, {
     LOG[DB_LOG_LEVEL](msg);
   }
 });
-
-// const Teacher = sequelize.define('teachers',  {
-//   id: {
-//     allowNull: false,
-//     autoIncrement: true,
-//     primaryKey: true,
-//     type: DataTypes.INTEGER
-//   },
-//   email: {
-//     allowNull: false,
-//     type: DataTypes.STRING
-//   },
-//   name: {
-//     allowNull: false,
-//     type: DataTypes.STRING
-//   }
-// });
-
-// const Student = sequelize.define('students',  {
-//   id: {
-//     allowNull: false,
-//     autoIncrement: true,
-//     primaryKey: true,
-//     type: DataTypes.INTEGER
-//   },
-//   email: {
-//     allowNull: false,
-//     type: DataTypes.STRING
-//   },
-//   name: {
-//     allowNull: false,
-//     type: DataTypes.STRING
-//   }
-// });
-
-// const Classroom = sequelize.define('classes',  {
-//   id: {
-//     allowNull: false,
-//     autoIncrement: true,
-//     primaryKey: true,
-//     type: DataTypes.INTEGER
-//   },
-//   code: {
-//     allowNull: false,
-//     type: DataTypes.STRING
-//   },
-//   name: {
-//     allowNull: false,
-//     type: DataTypes.STRING
-//   }
-// });
-
-// const Subject = sequelize.define('subjects',  {
-//   id: {
-//     allowNull: false,
-//     autoIncrement: true,
-//     primaryKey: true,
-//     type: DataTypes.INTEGER
-//   },
-//   code: {
-//     allowNull: false,
-//     type: DataTypes.STRING
-//   },
-//   name: {
-//     allowNull: false,
-//     type: DataTypes.STRING
-//   }
-// });
-
-// const Enrolment = sequelize.define('enrolments');
-
-// Teacher.hasMany(Enrolment);
-// Enrolment.belongsTo(Teacher);
-
-// Student.hasMany(Enrolment);
-// Enrolment.belongsTo(Student);
-
-// Classroom.hasMany(Enrolment);
-// Enrolment.belongsTo(Classroom);
-
-// Subject.hasMany(Enrolment);
-// Enrolment.belongsTo(Subject);
 
 export default sequelize;
 

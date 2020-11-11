@@ -6,15 +6,15 @@ module.exports = (sequelize, Sequelize) => {
     },
     classId: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: Sequelize.INTEGER
     },
     teacherId: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: Sequelize.INTEGER
     },
     studentId: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: Sequelize.INTEGER
     }
   })
 }

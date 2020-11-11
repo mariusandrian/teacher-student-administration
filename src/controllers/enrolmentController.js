@@ -13,19 +13,59 @@ const enrolStudents = async (req, res) => {
 
     if (Array.isArray(students)) {
       students.forEach(async student => {
-        let studentResult = await db.students.create({name: student.name, email: student.email});
-        studentId.push(studentResult.dataValues.id);
+        let studentResult = await db.students.findOrCreate({
+          where: {
+            email: student.email
+          },
+          defaults: {
+            name: student.name,
+            email: student.email
+          }
+        });
+        studentId.push(studentResult[0].dataValues.id);
       })
     } else {
-      let studentResult = await db.students.create({name: student.name, email: student.email});
+      let studentResult = await db.students.findOrCreate({
+        where: {
+          email: student.email
+        },
+        defaults: {
+          name: student.name,
+          email: student.email
+        }
+      });
+      studentId.push(studentResult[0].dataValues.id);
     }
-    const teacherResult = await db.teachers.create({name: teacher.name, email: teacher.email});
-    const subjectResult = await db.subjects.create({code: subject.subjectCode, name: subject.name});
-    const classroomResult = await db.classes.create({code: classroom.classCode, name: classroom.name});
+    const teacherResult = await db.teachers.findOrCreate({
+      where: {
+        email: teacher.email,
+      },
+      defaults: {
+        name: teacher.name,
+        email: teacher.email
+      }
+    });
+    const subjectResult = await db.subjects.findOrCreate({
+      where: {
+        code: subject.subjectCode
+      },
+      defaults: {
+        code: subject.subjectCode, name: subject.name
+      }
+    });
+    const classroomResult = await db.classes.findOrCreate({
+      where: {
+        code: classroom.classCode
+      },
+      defaults: {
+        code: classroom.classCode,
+        name: classroom.name
+      }
+    });
 
-    let teacherId = teacherResult.dataValues.id;
-    let subjectId = subjectResult.dataValues.id;
-    let classId = classroomResult.dataValues.id;
+    let teacherId = teacherResult[0].dataValues.id;
+    let subjectId = subjectResult[0].dataValues.id;
+    let classId = classroomResult[0].dataValues.id;
 
     // Populate enrolment table
     if (Array.isArray(students)) {
@@ -36,7 +76,6 @@ const enrolStudents = async (req, res) => {
           subjectId: subjectId,
           classId: classId
         });
-        console.log(enrolmentResult);
       });
     } else {
       let enrolmentResult = await db.enrolment.create({
